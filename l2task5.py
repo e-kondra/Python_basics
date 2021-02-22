@@ -1,5 +1,3 @@
-from typing import List, Any, Union
-
 price = [2.37, 14, 16.03, 149.8, 3.03, 5.9, 97, 13.18, 6.55, 11.11, 6, 45.63]
 # A
 for cost in price:
