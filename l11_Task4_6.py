@@ -86,6 +86,10 @@ class Stock:
             for key_, val_ in val.items():
                 print(f"\t{key_} - {val_} шт.")
 
+    @staticmethod
+    def obj_data(obj):
+        return f'{obj.name} {obj.brand} {obj.model}'
+
 
 class OfficeEquipment:
     def __init__(self, name, brand, model):
@@ -104,7 +108,7 @@ class Printer(OfficeEquipment):
     def set_printer(cls):
         brand = input("Укажите бренд: ")
         model = input("Укажите модель: ")
-        typ = input("Укажите тип печати 1 - laser, 2 - jet): ")
+        typ = input("Укажите тип печати 1 - laser, 2 - jet: ")
         color = input("1 - Цветной, 2 - ч/б (0): ")
         return cls(brand, model, 'jet' if int(typ) == 1 else None, True if int(color) == 1 else False)
 
@@ -162,13 +166,15 @@ while True:
         if int(a) == 1:
             pr = Printer.set_printer()
             Stock.accept(pr.name, pr.brand, pr.model, int(count))
+            print(f'{Stock.obj_data(pr)}, {count} шт. принят(ы) успешно')
         elif int(a) == 2:
             scan = Scanner.set_scaner()
             Stock.accept(scan.name, scan.brand, scan.model, int(count))
+            print(f'{Stock.obj_data(scan)}, {count} шт. принят(ы) успешно')
         elif int(a) == 3:
             cp = Copier.set_copier()
             Stock.accept(cp.name, cp.brand, cp.model, int(count))
-        print('Принято успешно')
+            print(f'{Stock.obj_data(cp)}, {count} шт. принят(ы) успешно')
     elif int(n) == 2:  # Переместить в подразделение
         print("Выберите подразделение:")
         for i in range(len(Stock.parts)):
@@ -202,7 +208,7 @@ while True:
                     while not MyErr.validate_count(count, val_):
                         count = input(f"Введите количество от 1 до {val_}: ")
                     st.transfer(podr, tech, br, mod, int(count))
-                    print(f'{tech} успешно перемещен/-ы в подразделение {podr}')
+                    print(f'{tech} {count} шт. успешно перемещен(ы) в подразделение {podr}')
         else:
             print(f'Внимание! На складе нет доступной оргтехники типа {tech}. Выберите другое действие')
     elif int(n) == 3:
